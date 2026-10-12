@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Codec Buddy</title>
+  <link rel="icon" type="image/png" href="media/favicon.png">
+  <link rel="stylesheet" href="https://isafuianish-dev.github.io/webapp_cdnBuddy/css/tokens.css">
+  <link rel="stylesheet" href="https://isafuianish-dev.github.io/webapp_cdnBuddy/css/base.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://isafuianish-dev.github.io/webapp_cdnBuddy/js/theme-init.js" data-app="webapp_codecBuddy"></script>
+  <script src="https://isafuianish-dev.github.io/webapp_cdnBuddy/js/utils.js" defer></script>
+  <script src="https://isafuianish-dev.github.io/webapp_cdnBuddy/js/icons.js" defer></script>
+  <script src="https://isafuianish-dev.github.io/webapp_cdnBuddy/js/modal.js" defer></script>
+  <script src="https://isafuianish-dev.github.io/webapp_cdnBuddy/js/theme.js" defer></script>
+  <script src="https://isafuianish-dev.github.io/webapp_cdnBuddy/js/settings.js" defer></script>
+  <script src="https://isafuianish-dev.github.io/webapp_cdnBuddy/js/markdown.js" defer></script>
+  <script src="https://isafuianish-dev.github.io/webapp_cdnBuddy/js/manual.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <div class="app">
+    <header class="topbar">
+      <div class="topbar-brand">
+        <span class="brand-icon" aria-hidden="true"><span class="icon" style="-webkit-mask-image:url(media/icon.svg);mask-image:url(media/icon.svg);"></span></span>
+        <h1>Codec Buddy</h1>
+      </div>
+      <div class="topbar-actions">
+        <button id="btnSettings" class="btn btn-ghost btn-icon" title="Settings" aria-label="Settings"></button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="panel panel-tools">
+        <div class="panel-header">
+          <input type="search" id="toolSearch" class="search-input" placeholder="Search" aria-label="Search tools">
+        </div>
+        <ul id="toolList" class="tool-list">
+          <li class="tool-item" data-tool="base64">
+            <span class="tool-item-icon" id="iconToolBase64" aria-hidden="true"></span>
+            <span class="tool-item-text">
+              <span class="tool-item-name">Base64</span>
+              <span class="tool-item-desc">Encode &amp; decode text</span>
+            </span>
+          </li>
+          <li class="tool-item" data-tool="url">
+            <span class="tool-item-icon" id="iconToolUrl" aria-hidden="true"></span>
+            <span class="tool-item-text">
+              <span class="tool-item-name">URL</span>
+              <span class="tool-item-desc">Percent-encode &amp; decode</span>
+            </span>
+          </li>
+          <li class="tool-item" data-tool="hex">
+            <span class="tool-item-icon" id="iconToolHex" aria-hidden="true"></span>
+            <span class="tool-item-text">
+              <span class="tool-item-name">Hex</span>
+              <span class="tool-item-desc">Convert to &amp; from hex</span>
+            </span>
+          </li>
+          <li class="tool-item" data-tool="jwt">
+            <span class="tool-item-icon" id="iconToolJwt" aria-hidden="true"></span>
+            <span class="tool-item-text">
+              <span class="tool-item-name">JWT Decode</span>
+              <span class="tool-item-desc">Inspect header &amp; payload</span>
+            </span>
+          </li>
+          <li class="tool-item" data-tool="json">
+            <span class="tool-item-icon" id="iconToolJson" aria-hidden="true"></span>
+            <span class="tool-item-text">
+              <span class="tool-item-name">JSON</span>
+              <span class="tool-item-desc">Beautify, minify &amp; validate</span>
+            </span>
+          </li>
+          <li class="tool-item" data-tool="replicate">
+            <span class="tool-item-icon" id="iconToolReplicate" aria-hidden="true"></span>
+            <span class="tool-item-text">
+              <span class="tool-item-name">Replicate</span>
+              <span class="tool-item-desc">Fill a template from data rows</span>
+            </span>
+          </li>
+          <li class="tool-item" data-tool="regex">
+            <span class="tool-item-icon" id="iconToolRegex" aria-hidden="true"></span>
+            <span class="tool-item-text">
+              <span class="tool-item-name">Regex</span>
+              <span class="tool-item-desc">Test &amp; debug regular expressions</span>
+            </span>
+          </li>
+        </ul>
+        <p id="toolListEmpty" class="empty-hint" hidden>No tools match your search.</p>
+      </aside>
+
+      <main class="panel-main">
+        <div class="workspace-card">
+        <div class="workspace-scroll">
+          <section class="workspace-body" id="toolBase64" data-tool-body="base64">
+            <div class="workspace-header">
+              <div class="workspace-header-text">
+                <h2 class="workspace-title">Base64</h2>
+                <p class="workspace-desc">Encode &amp; decode text</p>
+              </div>
+              <button type="button" class="btn btn-ghost btn-sm workspace-clear-btn" data-clear-tool="base64">Clear</button>
+            </div>
+            <div class="codec-pair">
+              <div class="codec-box">
+                <label class="codec-box-label" for="base64Plain">Plain text</label>
+                <div class="codec-box-field">
+                  <textarea id="base64Plain" class="form-control codec-textarea" placeholder="Type or paste plain text…" spellcheck="false"></textarea>
+                  <button type="button" class="copy-inline-btn" data-copy="base64Plain" title="Copy" aria-label="Copy plain text"></button>
+                </div>
+                <p class="form-error" id="base64PlainError" hidden></p>
+              </div>
+              <div class="codec-box">
+                <label class="codec-box-label" for="base64Encoded">Base64</label>
+                <div class="codec-box-field">
+                  <textarea id="base64Encoded" class="form-control codec-textarea" placeholder="Type or paste Base64…" spellcheck="false"></textarea>
+                  <button type="button" class="copy-inline-btn" data-copy="base64Encoded" title="Copy" aria-label="Copy Base64"></button>
+                </div>
+                <p class="form-error" id="base64EncodedError" hidden></p>
+              </div>
+            </div>
+          </section>
+
+          <section class="workspace-body" id="toolUrl" data-tool-body="url" hidden>
+            <div class="workspace-header">
+              <div class="workspace-header-text">
+                <h2 class="workspace-title">URL</h2>
+                <p class="workspace-desc">Percent-encode &amp; decode</p>
+              </div>
+              <button type="button" class="btn btn-ghost btn-sm workspace-clear-btn" data-clear-tool="url">Clear</button>
+            </div>
+            <div class="codec-pair">
+              <div class="codec-box">
+                <label class="codec-box-label" for="urlPlain">Plain text</label>
+                <div class="codec-box-field">
+                  <textarea id="urlPlain" class="form-control codec-textarea" placeholder="Type or paste plain text…" spellcheck="false"></textarea>
+                  <button type="button" class="copy-inline-btn" data-copy="urlPlain" title="Copy" aria-label="Copy plain text"></button>
+                </div>
+                <p class="form-error" id="urlPlainError" hidden></p>
+              </div>
+              <div class="codec-box">
+                <label class="codec-box-label" for="urlEncoded">URL-encoded</label>
+                <div class="codec-box-field">
+                  <textarea id="urlEncoded" class="form-control codec-textarea" placeholder="Type or paste URL-encoded text…" spellcheck="false"></textarea>
+                  <button type="button" class="copy-inline-btn" data-copy="urlEncoded" title="Copy" aria-label="Copy URL-encoded text"></button>
+                </div>
+                <p class="form-error" id="urlEncodedError" hidden></p>
+              </div>
+            </div>
+          </section>
+
+          <section class="workspace-body" id="toolHex" data-tool-body="hex" hidden>
+            <div class="workspace-header">
+              <div class="workspace-header-text">
+                <h2 class="workspace-title">Hex</h2>
+                <p class="workspace-desc">Convert to &amp; from hex</p>
+              </div>
+              <button type="button" class="btn btn-ghost btn-sm workspace-clear-btn" data-clear-tool="hex">Clear</button>
+            </div>
+            <div class="codec-pair">
+              <div class="codec-box">
+                <label class="codec-box-label" for="hexPlain">Plain text</label>
+                <div class="codec-box-field">
+                  <textarea id="hexPlain" class="form-control codec-textarea" placeholder="Type or paste plain text…" spellcheck="false"></textarea>
+                  <button type="button" class="copy-inline-btn" data-copy="hexPlain" title="Copy" aria-label="Copy plain text"></button>
+                </div>
+                <p class="form-error" id="hexPlainError" hidden></p>
+              </div>
+              <div class="codec-box">
+                <label class="codec-box-label" for="hexEncoded">Hex</label>
+                <div class="codec-box-field">
+                  <textarea id="hexEncoded" class="form-control codec-textarea mono" placeholder="Type or paste hex…" spellcheck="false"></textarea>
+                  <button type="button" class="copy-inline-btn" data-copy="hexEncoded" title="Copy" aria-label="Copy hex"></button>
+                </div>
+                <p class="form-error" id="hexEncodedError" hidden></p>
+              </div>
+            </div>
+          </section>
+
+          <section class="workspace-body" id="toolJwt" data-tool-body="jwt" hidden>
+            <div class="workspace-header">
+              <div class="workspace-header-text">
+                <h2 class="workspace-title">JWT Decode</h2>
+                <p class="workspace-desc">Inspect header &amp; payload</p>
+              </div>
+              <button type="button" class="btn btn-ghost btn-sm workspace-clear-btn" data-clear-tool="jwt">Clear</button>
+            </div>
+            <div class="codec-box">
+              <label class="codec-box-label" for="jwtInput">JWT token</label>
+              <div class="codec-box-field">
+                <textarea id="jwtInput" class="form-control codec-textarea mono" rows="4" placeholder="Paste a JWT (header.payload.signature)…" spellcheck="false"></textarea>
+                <button type="button" class="copy-inline-btn" data-copy="jwtInput" title="Copy" aria-label="Copy token"></button>
+              </div>
+              <p class="form-error" id="jwtError" hidden></p>
+            </div>
+
+            <div class="jwt-output-row">
+              <div class="jwt-output-block">
+                <span class="codec-box-label">Header</span>
+                <div class="codec-box-field">
+                  <pre class="jwt-output" id="jwtHeader"></pre>
+                  <button type="button" class="copy-inline-btn" data-copy="jwtHeader" title="Copy" aria-label="Copy header"></button>
+                </div>
+              </div>
+              <div class="jwt-output-block">
+                <span class="codec-box-label">Payload</span>
+                <div class="codec-box-field">
+                  <pre class="jwt-output" id="jwtPayload"></pre>
+                  <button type="button" class="copy-inline-btn" data-copy="jwtPayload" title="Copy" aria-label="Copy payload"></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="jwt-output-block">
+              <span class="codec-box-label">Signature <span class="section-label-hint">(shown, not verified)</span></span>
+              <div class="codec-box-field">
+                <pre class="jwt-output" id="jwtSignature"></pre>
+                <button type="button" class="copy-inline-btn" data-copy="jwtSignature" title="Copy" aria-label="Copy signature"></button>
+              </div>
+            </div>
+          </section>
+
+          <section class="workspace-body" id="toolJson" data-tool-body="json" hidden>
+            <div class="workspace-header">
+              <div class="workspace-header-text">
+                <h2 class="workspace-title">JSON</h2>
+                <p class="workspace-desc">Beautify, minify &amp; validate</p>
+              </div>
+              <button type="button" class="btn btn-ghost btn-sm workspace-clear-btn" data-clear-tool="json">Clear</button>
+            </div>
+            <div class="codec-pair">
+              <div class="codec-box">
+                <label class="codec-box-label" for="jsonInput">Raw JSON</label>
+                <div class="codec-box-field">
+                  <textarea id="jsonInput" class="form-control codec-textarea mono" placeholder="Paste or type JSON…" spellcheck="false"></textarea>
+                  <button type="button" class="copy-inline-btn" data-copy="jsonInput" title="Copy" aria-label="Copy raw JSON"></button>
+                </div>
+                <p class="form-error" id="jsonInputError" hidden></p>
+              </div>
+              <div class="codec-box">
+                <div class="codec-box-header">
+                  <span class="codec-box-label">Formatted</span>
+                  <span class="codec-box-header-actions">
+                    <span class="status-badge" id="jsonStatusBadge" hidden></span>
+                  </span>
+                </div>
+                <div class="codec-box-field">
+                  <textarea id="jsonOutput" class="form-control codec-textarea mono" placeholder="Formatted JSON will appear here…" spellcheck="false" readonly></textarea>
+                  <div class="codec-box-field-actions">
+                    <button type="button" class="copy-inline-btn" data-copy="jsonOutput" title="Copy" aria-label="Copy formatted JSON"></button>
+                    <button type="button" id="btnJsonMinify" class="copy-inline-btn" title="Minify" aria-label="Minify JSON"><span id="iconJsonMinify" aria-hidden="true"></span></button>
+                    <button type="button" id="btnJsonBeautify" class="copy-inline-btn active" title="Beautify" aria-label="Beautify JSON"><span id="iconJsonBeautify" aria-hidden="true"></span></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="workspace-body" id="toolReplicate" data-tool-body="replicate" hidden>
+            <div class="workspace-header">
+              <div class="workspace-header-text">
+                <h2 class="workspace-title">Replicate</h2>
+                <p class="workspace-desc">Fill a template from data rows</p>
+              </div>
+              <button type="button" class="btn btn-ghost btn-sm workspace-clear-btn" data-clear-tool="replicate">Clear</button>
+            </div>
+            <div class="codec-pair">
+              <div class="codec-box">
+                <label class="codec-box-label" for="replicateData">Data <span class="section-label-hint">(comma-delimited rows)</span></label>
+                <div class="codec-box-field">
+                  <textarea id="replicateData" class="form-control codec-textarea mono" placeholder="John,Doe&#10;Jane,Smith" spellcheck="false"></textarea>
+                </div>
+              </div>
+              <div class="codec-box">
+                <label class="codec-box-label" for="replicateTemplate">Template <span class="section-label-hint">(use ${1}, ${2}…)</span></label>
+                <div class="codec-box-field">
+                  <textarea id="replicateTemplate" class="form-control codec-textarea mono" placeholder="Hello ${1} ${2}, welcome aboard!" spellcheck="false"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="codec-box">
+              <label class="codec-box-label" for="replicateOutput">Output</label>
+              <div class="codec-box-field">
+                <textarea id="replicateOutput" class="form-control codec-textarea mono" placeholder="Generated output will appear here…" spellcheck="false" readonly></textarea>
+                <div class="codec-box-field-actions">
+                  <button type="button" id="btnReplicateGenerate" class="copy-inline-btn" title="Generate" aria-label="Generate output"><span id="iconReplicateGenerate" aria-hidden="true"></span></button>
+                  <button type="button" class="copy-inline-btn" data-copy="replicateOutput" title="Copy" aria-label="Copy output"></button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="workspace-body" id="toolRegex" data-tool-body="regex" hidden>
+            <div class="workspace-header">
+              <div class="workspace-header-text">
+                <h2 class="workspace-title">Regex</h2>
+                <p class="workspace-desc">Test &amp; debug regular expressions</p>
+              </div>
+              <button type="button" class="btn btn-ghost btn-sm workspace-clear-btn" data-clear-tool="regex">Clear</button>
+            </div>
+
+            <section>
+              <label class="codec-box-label" for="regexPatternInput">Pattern</label>
+              <div class="regex-input-row">
+                <span class="regex-slash">/</span>
+                <input type="text" id="regexPatternInput" class="regex-input" placeholder="Enter a regular expression…" autocomplete="off" spellcheck="false">
+                <span class="regex-slash">/</span>
+                <span class="regex-flags-display" id="regexFlagsDisplay"></span>
+                <div class="pattern-picker">
+                  <button type="button" id="btnPatternPicker" class="btn btn-ghost btn-icon" title="Insert a common pattern" aria-label="Insert a common pattern" aria-haspopup="true" aria-expanded="false"></button>
+                  <div class="pattern-picker-menu" id="patternPickerMenu" role="menu" hidden></div>
+                </div>
+              </div>
+              <div class="flag-chip-row" id="regexFlagChipRow"></div>
+              <p class="form-error" id="regexPatternError" hidden></p>
+            </section>
+
+            <section>
+              <div class="codec-box-header">
+                <label class="codec-box-label" for="regexTestInput">Test String</label>
+                <span class="match-count-badge" id="matchCountBadge">0 matches</span>
+              </div>
+              <textarea id="regexTestInput" class="form-control codec-textarea" rows="6" placeholder="Paste or type text to test your pattern against…" spellcheck="false"></textarea>
+            </section>
+
+            <section>
+              <label class="codec-box-label">Highlighted Preview</label>
+              <div class="highlight-preview" id="highlightPreview"></div>
+            </section>
+
+            <section>
+              <label class="codec-box-label" for="regexReplaceInput">Replacement <span class="section-label-hint">(supports $1, $&lt;name&gt;, $&amp;)</span></label>
+              <input type="text" id="regexReplaceInput" class="form-control" placeholder="Leave empty to skip replacement preview" autocomplete="off">
+              <div class="replace-result-wrap" id="replaceResultWrap" hidden>
+                <label class="codec-box-label">Result</label>
+                <div class="codec-box-field">
+                  <pre class="jwt-output" id="replaceResult"></pre>
+                  <button type="button" class="copy-inline-btn" data-copy="replaceResult" title="Copy result" aria-label="Copy result"></button>
+                </div>
+              </div>
+            </section>
+          </section>
+        </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+</body>
+</html>
